@@ -25,9 +25,9 @@ public class Monster {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Monster(String id, String nome, String nomeOriginal, String tipo, String descricao, String caracteristica, String mundo, String habitat, String dieta, String escalaPerigo, String fraqueza) {
+	public Monster(String nome, String nomeOriginal, String tipo, String descricao, String caracteristica, String mundo, String habitat, String dieta, String escalaPerigo, String fraqueza) {
 		super();
-		this.id = id;
+		
 		this.nome = nome;
 		this.nomeOriginal = nomeOriginal;
 		this.tipo = tipo;
