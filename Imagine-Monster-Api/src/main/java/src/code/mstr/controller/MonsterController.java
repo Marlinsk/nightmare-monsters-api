@@ -22,7 +22,7 @@ import src.code.mstr.service.MonsterService;
 
 
 @RestController
-@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "")
+@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "monstrinhos")
 public class MonsterController {
    
 	private final MonsterService monsterService;
