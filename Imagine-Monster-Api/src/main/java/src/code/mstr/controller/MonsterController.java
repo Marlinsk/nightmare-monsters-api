@@ -20,9 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import src.code.mstr.entidade.Monster;
 import src.code.mstr.service.MonsterService;
 
-
 @RestController
-@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "monstrinhos")
+@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "monstrinho")
 public class MonsterController {
    
 	private final MonsterService monsterService;
@@ -31,47 +30,34 @@ public class MonsterController {
 		this.monsterService=monsterService;
 	}
 	
-	@GetMapping
-    public List<Monster> getMonster(){
-        return monsterService.getMonster();
-    }
-	
-	@GetMapping(value="{id}")
-    public Monster getMonsterById(@PathVariable String id) throws Exception{
-        if(!ObjectUtils.isEmpty(id)){
-           return monsterService.getMonsterByCodigo(id);
-        }
-        throw new Exception("Monstro com código "+ id +" não encontrado");
-    }
+	@GetMapping(value = "")
+	public List<Monster> getMonster() {
+		return monsterService.getMonster();
+	}
+    
+	@GetMapping(value = "{id}")
+	public Monster getMonsterById(@PathVariable String id) throws Exception {
+		if (!ObjectUtils.isEmpty(id)) {
+			return monsterService.getMonsterById(id);
+		}
+		throw new Exception("Monstro com código " + id + " não encontrado");
+	}
 	
 	@ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Monster createMonster(@RequestBody @NotNull Monster monster) throws Exception {
-    	if (monsterService.isMonsterExists(monster.getId())) {
-    		throw new Exception("Monstro com código " + monster.getId() + " já existe");
-    	} 
-        return monsterService.saveMonster(monster);
-    }
+	@PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public Monster createMonster(@RequestBody @NotNull Monster monster) throws Exception {
+		return monsterService.saveMonster(monster);
+	}
 	
 	@PutMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Monster updateMonster(@PathVariable String id, 
-    		@RequestBody @NotNull Monster monster) throws Exception {
-    	if (!id.equals(monster.getId())) {
-    		throw new Exception("Código "+ id +" não está correto");
-    	}
-    	if (!monsterService.isMonsterExists(monster)) {
-    		throw new Exception("Monstro com código " + id + " não existe");
-    	}
-        return monsterService.saveMonster(monster);
-    }
+	public Monster updateAboutGarage(@PathVariable String id, @RequestBody @NotNull Monster monster) throws Exception {
+		return monsterService.saveMonster(monster);
+	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping(value = "{id}")
-    public boolean updateCriptomoeda(@PathVariable String id) throws Exception {
-    	if (!monsterService.isMonsterExists(id)) {
-    		throw new Exception("Monstro com código " + id + " não existe");
-    	} 
-    	monsterService.deleteMonster(id);
-        return true;
-    }
+	@DeleteMapping(value = "{id}")
+	public boolean updateMonster(@PathVariable String id) throws Exception {
+		monsterService.deleteMonster(id);
+		return true;
+	}
 }

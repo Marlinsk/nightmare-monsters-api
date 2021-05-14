@@ -10,8 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import src.code.mstr.config.MonsterRepository;
 import src.code.mstr.entidade.Monster;
-import src.code.mstr.repository.MonsterRepository;
 
 @Service
 public class MonsterService {
@@ -25,36 +25,36 @@ public class MonsterService {
     }
 	
 	public List<Monster> getMonster(){
-		if(logger.isInfoEnabled()){
+        if(logger.isInfoEnabled()){
             logger.info("Buscando todos os objetos");
         }
-		Iterable<Monster> lista = this.monsterRepo.findAll();
-		if (lista == null) {
+        Iterable<Monster> lista = this.monsterRepo.findAll();
+        if (lista == null) {
         	return new ArrayList<Monster>();
         }
         return IteratorUtils.toList(lista.iterator());
-    }
-	
-	public Monster getMonsterByCodigo(String codigo){
+    }    
+
+	public Monster getMonsterById(String id){
         if(logger.isInfoEnabled()){
-            logger.info("Buscando monstro com o codigo {}", codigo);
+            logger.info("Buscando monstro com o código {}",id);
         }
-        Optional<Monster> retorno = this.monsterRepo.findById(codigo);
+        Optional<Monster> retorno = this.monsterRepo.findById(id);
         if(!retorno.isPresent()){
-            throw new RuntimeException("Monstro com o código "+ codigo + " não encontrada");
+            throw new RuntimeException("Monstro com o código "+ id +" não encontrada");
         }
         return retorno.get();
     }
 	
-	public Monster getMonsterByNome(String nome){
-        if(logger.isInfoEnabled()){
-            logger.info("Buscando monstro com o nome {}",nome);
+	public List<Monster> getMonsterByNome(String nome){
+    	if(logger.isInfoEnabled()){
+            logger.info("Buscando todos os objetos");
         }
-        List<Monster> lista = this.monsterRepo.findByNome(nome);
-        if(lista == null || lista.isEmpty()){
-            throw new RuntimeException("Monstro com o nome "+ nome +" não encontrada");
+        Iterable<Monster> lista = this.monsterRepo.findByNome(nome);
+        if (lista == null) {
+        	return new ArrayList<Monster>();
         }
-        return lista.get(0);
+        return IteratorUtils.toList(lista.iterator());
     }
 	
 	public Monster saveMonster(Monster monster){
@@ -64,20 +64,10 @@ public class MonsterService {
         return this.monsterRepo.save(monster);
     }
 	
-	public void deleteMonster(String codigo){
+    public void deleteMonster(String id){
         if(logger.isInfoEnabled()){
-            logger.info("Excluindo monstro com id {}", codigo);
+            logger.info("Excluindo monstro com id {}", id);
         }
-        this.monsterRepo.deleteById(codigo);
-    }
-	
-	public boolean isMonsterExists(Monster monster){
-    	Optional<Monster> retorno = this.monsterRepo.findById(monster.getId());
-        return retorno.isPresent() ? true:  false;
-    }
-
-    public boolean isMonsterExists(String codigo){
-    	Optional<Monster> retorno = this.monsterRepo.findById(codigo);
-        return retorno.isPresent() ? true:  false;
+        this.monsterRepo.deleteById(id);
     }
 }
