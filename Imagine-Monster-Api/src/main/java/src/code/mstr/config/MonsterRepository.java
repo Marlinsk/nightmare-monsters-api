@@ -1,4 +1,4 @@
-package src.code.mstr.repository;
+package src.code.mstr.config;
 
 import java.util.List;
 

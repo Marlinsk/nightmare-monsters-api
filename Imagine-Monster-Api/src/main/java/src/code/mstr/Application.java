@@ -17,7 +17,7 @@ public class Application {
     
 	public static void main(String[] args) {
 
-		lon.info("Acordando...");
+		lon.info("Iniciando...");
 		System.setProperty("server.servlet.context-path", "/monstrinho-api");
 		new SpringApplicationBuilder(Application.class).web(WebApplicationType.SERVLET).run(args);
          
