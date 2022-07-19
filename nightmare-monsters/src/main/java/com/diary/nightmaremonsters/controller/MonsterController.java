@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.diary.nightmaremonsters.dtos.MonsterDTO;
@@ -50,17 +49,8 @@ public class MonsterController {
 		return ResponseEntity.status(HttpStatus.OK).body(monsterService.findAll());
 	}
 	
-	@GetMapping("/{name}")
-	public ResponseEntity<Object> getByName(@RequestParam String name) {
-		Optional<Monster> monsterModelOptional = monsterService.findByName(name);
-		if (!monsterModelOptional.isPresent()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("This monster not found!");
-		}
-		return ResponseEntity.status(HttpStatus.OK).body(monsterModelOptional.get());
-	}
-	
 	@GetMapping("/{id}")
-	public ResponseEntity<Object> getOneMonster(@PathVariable(value = "id") UUID id) {
+	public ResponseEntity<Object> getOneMonster(@PathVariable(value="id") UUID id) {
 		Optional<Monster> monsterModelOptional = monsterService.findById(id);
 		if (!monsterModelOptional.isPresent()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("This monster not exist!");
@@ -69,7 +59,7 @@ public class MonsterController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Object> updateMonster(@PathVariable(value = "id") UUID id, @RequestBody @Valid MonsterDTO monsterDTO) {
+	public ResponseEntity<Object> updateMonster(@PathVariable(value="id") UUID id, @RequestBody @Valid MonsterDTO monsterDTO) {
 		Optional<Monster> monsterModelOptional = monsterService.findById(id);
 		if (!monsterModelOptional.isPresent()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found!");

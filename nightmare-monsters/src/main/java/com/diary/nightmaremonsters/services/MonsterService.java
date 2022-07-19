@@ -21,27 +21,23 @@ public class MonsterService {
 	
 	@Transactional
 	public Monster save(Monster monster) {
-		return this.monsterRepository.save(monster);
+		return monsterRepository.save(monster);
 	}
 	
 	public boolean existsByName(String name) {
-		return this.monsterRepository.existsByName(name);
+		return monsterRepository.existsByName(name);
 	}
 	
 	public List<Monster> findAll() {
-		return this.monsterRepository.findAll();
-	}
-	
-	public Optional<Monster> findByName(String name){
-		return this.monsterRepository.findByName(name);
+		return monsterRepository.findAll();
 	}
 	
 	public Optional<Monster> findById(UUID id) {
-		return this.monsterRepository.findById(id);
+		return monsterRepository.findById(id);
 	}
 	
 	@Transactional
 	public void Delete(Monster monsterModel) {
-		this.monsterRepository.delete(monsterModel);
+		monsterRepository.delete(monsterModel);
 	}
 }

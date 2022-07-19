@@ -26,9 +26,6 @@ public class MonsterDTO {
 	private String[] diet;
 	
 	@NotBlank
-	private Integer dangerScore;
-	
-	@NotBlank
 	private String weakness;
 	
 }

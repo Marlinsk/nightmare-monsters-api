@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name="TB_MONSTER_PROFILE")
-public class Monster extends Land implements Serializable {
+public class Monster implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -35,10 +35,7 @@ public class Monster extends Land implements Serializable {
 	@Column(name="DIET", nullable = false, unique = false, length = 30)
 	private String[] diet;
 	
-	@Column(name="DANGER_SCORE", nullable = false, unique = false, length = 30)
-	private Integer dangerScore;
-	
 	@Column(name="WEAKNESS", nullable = false, unique = false, length = 70)
 	private String weakness;
-	
+
 }
