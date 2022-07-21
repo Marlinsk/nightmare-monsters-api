@@ -24,7 +24,7 @@ import com.diary.nightmaremonsters.models.Monster;
 import com.diary.nightmaremonsters.services.MonsterService;
 
 @RestController
-@RequestMapping("/nightmare-monsters")
+@RequestMapping("/monster-book")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class MonsterController {
 	
