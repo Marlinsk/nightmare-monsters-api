@@ -36,6 +36,10 @@ public class MonsterService {
 		return monsterRepository.findById(id);
 	}
 	
+	public Optional<Monster> findMonsterByName(String name) {
+		return monsterRepository.findByName(name);
+	}
+	
 	@Transactional
 	public void Delete(Monster monsterModel) {
 		monsterRepository.delete(monsterModel);
