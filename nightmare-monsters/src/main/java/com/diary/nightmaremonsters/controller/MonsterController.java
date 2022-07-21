@@ -24,7 +24,7 @@ import com.diary.nightmaremonsters.models.Monster;
 import com.diary.nightmaremonsters.services.MonsterService;
 
 @RestController
-@RequestMapping("/nightmare-diary/monsters")
+@RequestMapping("/nightmare-monsters")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class MonsterController {
 	
@@ -34,7 +34,7 @@ public class MonsterController {
 		this.monsterService = monsterService;
 	}
 	
-	@PostMapping("/create-monster")
+	@PostMapping("/options/create")
 	public ResponseEntity<Object> createMonster(@RequestBody @Valid MonsterDTO monsterDTO) {
 		if (monsterService.existsByName(monsterDTO.getName())) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: The monster name is already in use!");
@@ -44,13 +44,13 @@ public class MonsterController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(monsterService.save(monster));
 	}
 	
-	@GetMapping("/")
+	@GetMapping("/options/get/all/")
 	public ResponseEntity<List<Monster>> getAll() {
 		return ResponseEntity.status(HttpStatus.OK).body(monsterService.findAll());
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<Object> getOneMonster(@PathVariable(value="id") UUID id) {
+	@GetMapping("/options/get/one/{id}")
+	public ResponseEntity<Object> getOne(@PathVariable(value="id") UUID id) {
 		Optional<Monster> monsterModelOptional = monsterService.findById(id);
 		if (!monsterModelOptional.isPresent()) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("This monster not exist!");
@@ -58,7 +58,16 @@ public class MonsterController {
 		return ResponseEntity.status(HttpStatus.OK).body(monsterModelOptional.get());
 	}
 	
-	@PutMapping("/{id}")
+	@GetMapping("/options/search/{name}")
+	public ResponseEntity<Object> searchByName(@PathVariable(value = "name") String name) {
+		Optional <Monster> monsterModelOptional = monsterService.findMonsterByName(name);
+		if (!monsterModelOptional.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("This monster not exist!");
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(monsterModelOptional.get());
+	} 
+	
+	@PutMapping("/options/edit/{id}")
 	public ResponseEntity<Object> updateMonster(@PathVariable(value="id") UUID id, @RequestBody @Valid MonsterDTO monsterDTO) {
 		Optional<Monster> monsterModelOptional = monsterService.findById(id);
 		if (!monsterModelOptional.isPresent()) {
@@ -70,7 +79,7 @@ public class MonsterController {
 		return ResponseEntity.status(HttpStatus.OK).body(monsterService.save(monster));
 	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/options/delete/{id}")
 	public ResponseEntity<Object> deleteMonster(@PathVariable(value = "id") UUID id) {
 		Optional<Monster> monsterModelOptional = monsterService.findById(id);
 		if (!monsterModelOptional.isPresent()) {
