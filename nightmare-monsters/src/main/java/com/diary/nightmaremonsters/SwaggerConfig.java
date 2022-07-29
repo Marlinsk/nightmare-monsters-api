@@ -24,7 +24,7 @@ public class SwaggerConfig {
 	}
 	
 	private ApiInfo metaInfo() {
-		ApiInfo apiInfo = new ApiInfo("My monster book", "Rest API focused on creating monsters and worlds taken from the incredibly insane human brain.", "1.0.0", "Terms of Service", new Contact("Marlon Rodrigues", "www.linkedin.com/in/marlinsk", "marlonsrrodrigues@gmail.com"), "Apache License Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0", new ArrayList<VendorExtension>());
+		ApiInfo apiInfo = new ApiInfo("Nightmare Monsters Rest Api", "Rest API focused on creating monsters and worlds taken from the incredibly insane human brain.", "1.0.0", "Terms of Service", new Contact("Marlon Rodrigues", "www.linkedin.com/in/marlinsk", "marlonsrrodrigues@gmail.com"), "Apache License Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0", new ArrayList<VendorExtension>());
 		return apiInfo;
 	}
 }
