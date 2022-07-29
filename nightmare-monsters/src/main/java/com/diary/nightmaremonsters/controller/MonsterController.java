@@ -7,8 +7,10 @@ import java.util.UUID;
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +26,7 @@ import com.diary.nightmaremonsters.models.Monster;
 import com.diary.nightmaremonsters.services.MonsterService;
 
 @RestController
-@RequestMapping("/monster-book")
+@RequestMapping("/nightmare-monsters")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class MonsterController {
 	
@@ -34,7 +36,7 @@ public class MonsterController {
 		this.monsterService = monsterService;
 	}
 	
-	@PostMapping("/options/create")
+	@PostMapping("/create")
 	public ResponseEntity<Object> createMonster(@RequestBody @Valid MonsterDTO monsterDTO) {
 		if (monsterService.existsByName(monsterDTO.getName())) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: The monster name is already in use!");
@@ -44,12 +46,12 @@ public class MonsterController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(monsterService.save(monster));
 	}
 	
-	@GetMapping("/options/get/all/")
+	@GetMapping("/get/all")
 	public ResponseEntity<List<Monster>> getAll() {
 		return ResponseEntity.status(HttpStatus.OK).body(monsterService.findAll());
 	}
 	
-	@GetMapping("/options/get/one/{id}")
+	@GetMapping("/get/id/{id}")
 	public ResponseEntity<Object> getOne(@PathVariable(value="id") UUID id) {
 		Optional<Monster> monsterModelOptional = monsterService.findById(id);
 		if (!monsterModelOptional.isPresent()) {
@@ -58,7 +60,7 @@ public class MonsterController {
 		return ResponseEntity.status(HttpStatus.OK).body(monsterModelOptional.get());
 	}
 	
-	@GetMapping("/options/search/{name}")
+	@GetMapping("/get/name/{name}")
 	public ResponseEntity<Object> searchByName(@PathVariable(value = "name") String name) {
 		Optional <Monster> monsterModelOptional = monsterService.findMonsterByName(name);
 		if (!monsterModelOptional.isPresent()) {
@@ -67,7 +69,7 @@ public class MonsterController {
 		return ResponseEntity.status(HttpStatus.OK).body(monsterModelOptional.get());
 	} 
 	
-	@PutMapping("/options/edit/{id}")
+	@PutMapping("/edit/{id}")
 	public ResponseEntity<Object> updateMonster(@PathVariable(value="id") UUID id, @RequestBody @Valid MonsterDTO monsterDTO) {
 		Optional<Monster> monsterModelOptional = monsterService.findById(id);
 		if (!monsterModelOptional.isPresent()) {
@@ -79,7 +81,7 @@ public class MonsterController {
 		return ResponseEntity.status(HttpStatus.OK).body(monsterService.save(monster));
 	}
 	
-	@DeleteMapping("/options/delete/{id}")
+	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<Object> deleteMonster(@PathVariable(value = "id") UUID id) {
 		Optional<Monster> monsterModelOptional = monsterService.findById(id);
 		if (!monsterModelOptional.isPresent()) {
