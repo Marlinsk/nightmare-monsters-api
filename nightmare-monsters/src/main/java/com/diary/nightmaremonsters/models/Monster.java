@@ -20,10 +20,10 @@ public class Monster implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private UUID id;
 	
-	@Column(name="MONSTER_NAME", nullable = false, unique = true, length = 20)
+	@Column(name="MONSTER_NAME", nullable = false, unique = true, length = 70)
 	private String name;
 	
-	@Column(name="TYPE", nullable = false, unique = false, length = 30)
+	@Column(name="TYPE", nullable = false, unique = false, length = 70)
 	private String type;
 	
 	@Column(name="DESCRIPTION", nullable = false, unique = false, length = 1000)
@@ -35,7 +35,7 @@ public class Monster implements Serializable {
 	@Column(name="DIET", nullable = false, unique = false, length = 70)
 	private String[] diet;
 	
-	@Column(name="WEAKNESS", nullable = false, unique = false, length = 30)
+	@Column(name="WEAKNESS", nullable = false, unique = false, length = 70)
 	private String weakness;
 	
 }
